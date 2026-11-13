@@ -1,15 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Check, Play, Star, ArrowUpRight } from "lucide-react";
-import athlete from "@/assets/athlete.jpg";
-import sneaker from "@/assets/sneaker.jpg";
+import { useEffect, useRef, type ReactNode } from "react";
+import { ChevronsRight, Instagram, Facebook, Dribbble, ArrowUpRight, Menu } from "lucide-react";
+import player from "@/assets/player.png";
+import sky from "@/assets/balls-sky.jpg";
+import shoe from "@/assets/pink-shoe.jpg";
+import jersey from "@/assets/pink-jersey.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Grow+ — AI-Powered User Content | Reelers" },
-      { name: "description", content: "Drive sales growth and harness AI-powered user content — up to 50× faster." },
-      { property: "og:title", content: "Grow+ — AI-Powered User Content | Reelers" },
-      { property: "og:description", content: "Drive sales growth with AI-powered user content." },
+      { title: "FLARE — Own The Court | Limited Edition Courtwear" },
+      { name: "description", content: "Performance made to shine. Limited edition basketball courtwear for players who never blend in." },
+      { property: "og:title", content: "FLARE — Own The Court" },
+      { property: "og:description", content: "Limited edition courtwear for players who never blend in." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -17,76 +20,138 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const nav = ["Product", "Solutions", "Pricing", "Developers"];
-const logos = ["Rakuten", "NCR", "monday.com", "Disney", "Dropbox"];
+function Reveal({ children, delay = 0, className = "" }: { children: ReactNode; delay?: number; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { el.classList.add("in"); io.disconnect(); } }, { threshold: 0.15 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return <div ref={ref} className={`reveal ${className}`} style={{ transitionDelay: `${delay}ms` }}>{children}</div>;
+}
+
+const nav = ["new drop", "courtwear", "accessories", "stories"];
+const products = [
+  { img: shoe, name: "Flare Glitter High", price: "$289", tag: "Footwear" },
+  { img: jersey, name: "Dreamers Jersey 23", price: "$129", tag: "Courtwear" },
+  { img: sky, name: "Sparkle Ball Pro", price: "$89", tag: "Accessories" },
+];
 
 function Index() {
   return (
-    <div className="min-h-screen bg-card">
-      <div className="flex min-h-screen flex-col p-3">
-        <header className="flex flex-wrap items-center justify-between gap-4 px-8 py-5 text-sm font-semibold">
-          <div className="flex items-center gap-3">
-            <span className="flex gap-0.5"><span className="h-3 w-4 -rotate-45 rounded-full bg-primary" /><span className="h-3 w-4 -rotate-45 rounded-full bg-primary" /></span>
-            <span>/ Sales@reelers.io</span>
-          </div>
-          <nav className="hidden items-center gap-4 md:flex">
-            {nav.map((n, i) => (<span key={n} className="flex items-center gap-4">{i > 0 && <span>.</span>}<a href="#">{n}</a></span>))}
+    <div className="min-h-screen bg-background font-sans text-foreground">
+      {/* HERO */}
+      <section className="flex min-h-screen flex-col p-3">
+        <header className="flex items-center justify-between px-6 py-4">
+          <div className="font-display text-xl font-extrabold tracking-[0.35em]">FLARE</div>
+          <nav className="hidden gap-10 text-sm md:flex">
+            {nav.map((n, i) => <a key={n} href="#" className="transition hover:text-primary"><sup className="mr-1 text-muted-foreground">0{i + 1}</sup>{n}</a>)}
           </nav>
-          <div className="flex items-center gap-6">
-            <span className="hidden h-6 w-px bg-border md:block" />
-            <a href="#">Log in</a>
-            <a href="#" className="rounded-full border border-primary px-5 py-2.5">Get it Now <span className="font-normal">— It's Free</span></a>
+          <div className="flex items-center gap-5">
+            <a href="#shop" className="rounded-full bg-primary px-6 py-2.5 text-sm font-semibold tracking-widest text-primary-foreground transition hover:scale-105">BUY NOW</a>
+            <Menu className="h-6 w-6" />
           </div>
         </header>
 
-        <section className="bg-hero grid flex-1 gap-10 rounded-3xl px-8 py-16 md:grid-cols-2 md:px-14">
-          <div className="flex flex-col justify-center">
-            <div className="flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs">✦</span>
-              <div className="font-display leading-tight"><p className="text-lg font-semibold">20M+ User</p><p className="text-sm">Read Our <a href="#" className="font-semibold underline">Success Stories</a></p></div>
+        <div className="bg-hero relative flex-1 overflow-hidden rounded-[2rem]">
+          <div className="text-outline font-display pointer-events-none absolute inset-x-0 top-10 select-none text-center text-[16vw] font-black leading-none">THE COURT</div>
+          <div className="relative grid h-full min-h-[640px] grid-cols-1 md:grid-cols-3">
+            <div className="z-10 flex flex-col justify-center gap-6 p-8 md:p-12">
+              <Reveal><div className="flex justify-between text-xs tracking-widest text-muted-foreground"><span>[ LIMITED EDITION</span><span>2026 ]</span></div></Reveal>
+              <Reveal delay={100}><h1 className="font-display text-6xl font-extrabold leading-[0.95] md:text-8xl">OWN<br />THE<br />COURT</h1></Reveal>
+              <Reveal delay={200}>
+                <div className="glass flex items-center justify-between rounded-2xl p-5">
+                  <div><p className="text-3xl font-bold">80K+</p><p className="text-xs text-muted-foreground">Trusted by precision players</p></div>
+                  <div className="flex -space-x-3"><span className="h-11 w-11 rounded-full border-2 border-background bg-muted" /><span className="h-11 w-11 rounded-full border-2 border-background bg-primary" /></div>
+                </div>
+              </Reveal>
+              <Reveal delay={300}>
+                <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-primary-foreground"><ChevronsRight className="h-5 w-5" /></span>
+                  <p>Performance made to shine.<br />Designed for players who never blend in.</p>
+                </div>
+              </Reveal>
             </div>
-            <h1 className="font-display mt-6 text-8xl md:text-[9rem] leading-none tracking-tight">Grow<sup className="text-6xl font-light">+</sup></h1>
-            <hr className="mt-8 border-foreground/20" />
-            <p className="mt-6 text-lg leading-relaxed">Drive Sales Growth, And Harness Ai-Powered User Content — Up To 50× Faster.</p>
-            <div className="mt-6 flex items-center gap-6 border-b border-foreground/20 pb-5 font-display text-sm">
-              <img src={athlete} alt="" width={32} height={32} className="h-8 w-8 rounded-full object-cover" />
-              <p>Loved the performance<br />100% Satisfied</p>
-              <span>/</span>
-              <span className="flex items-center gap-1 font-semibold"><Star className="h-3 w-3 fill-current" />4.9</span>
+            <div className="relative flex items-end justify-center">
+              <img src={player} alt="Athlete holding a pink glitter basketball" width={896} height={1152} className="relative z-10 max-h-[90vh] w-auto object-contain object-bottom" />
             </div>
-            <div className="mt-10 flex items-center gap-8 text-sm font-semibold">
-              <a href="#" className="rounded-full bg-primary px-6 py-3.5 text-primary-foreground">Download <span className="font-normal">— It's Free</span></a>
-              <a href="#" className="flex items-center gap-1 underline">Our Pricing <ArrowUpRight className="h-4 w-4" /></a>
-            </div>
-          </div>
-
-          <div className="relative mx-auto h-[500px] w-full max-w-[520px]">
-            <div className="absolute left-[18%] top-0 h-full w-[56%] overflow-hidden rounded-3xl bg-brand">
-              <img src={athlete} alt="Athlete in blue tank top" width={768} height={1024} className="h-full w-full object-cover" />
-            </div>
-            <div className="absolute left-[12%] top-[20%] flex items-center gap-3 rounded-full bg-card px-4 py-2.5 text-sm shadow"><span className="flex h-5 w-5 items-center justify-center rounded bg-check-orange text-primary-foreground"><Check className="h-3 w-3 text-card" /></span>How is the fit?</div>
-            <div className="absolute left-0 top-[30%] flex items-center gap-3 rounded-full bg-card px-4 py-2.5 text-sm shadow"><span className="flex h-5 w-5 items-center justify-center rounded bg-check-blue"><Check className="h-3 w-3 text-card" /></span>Do you like the design?</div>
-            <button aria-label="Play" className="absolute left-[46%] top-[47%] flex h-14 w-14 items-center justify-center rounded-full bg-card shadow"><Play className="h-4 w-4 fill-current" /></button>
-            <div className="glass absolute right-0 top-[5%] w-40 rounded-3xl p-5">
-              <p className="text-[10px] font-semibold">— UP TO</p>
-              <p className="mt-3 text-4xl font-bold">60%</p>
-              <p className="mt-1 text-sm text-foreground/70">More sales this week</p>
-            </div>
-            <div className="glass absolute -right-4 bottom-[4%] flex w-72 items-center gap-4 rounded-3xl p-4">
-              <img src={sneaker} alt="Sneaker" width={112} height={112} loading="lazy" className="h-28 w-28 rounded-2xl object-cover" />
-              <div>
-                <p className="text-lg leading-tight">Nike Shoes<br />Jordan</p>
-                <p className="mt-1 text-2xl font-bold">$849.99</p>
-                <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-card px-2 py-0.5 text-sm font-semibold"><Star className="h-3 w-3 fill-current" />4.6</span>
+            <div className="z-10 flex flex-col justify-between p-8 md:p-12">
+              <div className="flex justify-end gap-4">
+                <img src={sky} alt="Pink basketballs in the sky" width={176} height={176} className="float h-44 w-44 rounded-2xl border-4 border-foreground/10 object-cover" />
+                <div className="glass flex flex-col gap-4 rounded-full p-2">
+                  {[Instagram, Facebook, Dribbble].map((I, i) => <a key={i} href="#" className="flex h-9 w-9 items-center justify-center rounded-full transition hover:bg-primary"><I className="h-4 w-4" /></a>)}
+                </div>
               </div>
+              <Reveal delay={400}><h2 className="font-display text-right text-6xl font-extrabold leading-[0.95] md:text-8xl">PLAY<br />BOLD</h2></Reveal>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <div className="flex flex-wrap items-center justify-around gap-6 px-8 py-10 text-2xl font-extrabold tracking-tight">
-          {logos.map((l) => <span key={l}>{l}</span>)}
+      {/* MARQUEE */}
+      <div className="overflow-hidden border-y border-border py-6">
+        <div className="marquee flex w-max gap-12 font-display text-4xl font-extrabold">
+          {Array.from({ length: 2 }).flatMap((_, k) => ["SHINE", "✦", "OWN THE COURT", "✦", "PLAY BOLD", "✦", "LIMITED 2026", "✦"].map((w, i) => <span key={`${k}-${i}`} className={w === "✦" ? "text-primary" : ""}>{w}</span>))}
         </div>
       </div>
+
+      {/* STATS */}
+      <section className="mx-auto grid max-w-7xl gap-6 px-6 py-28 md:grid-cols-3">
+        {[["80K+", "Players worldwide"], ["24", "Pro teams equipped"], ["4.9★", "Average rating"]].map(([n, l], i) => (
+          <Reveal key={l} delay={i * 120}>
+            <div className="glass rounded-3xl p-10">
+              <p className="font-display text-6xl font-extrabold text-primary">{n}</p>
+              <p className="mt-3 text-muted-foreground">{l}</p>
+            </div>
+          </Reveal>
+        ))}
+      </section>
+
+      {/* PRODUCTS */}
+      <section id="shop" className="mx-auto max-w-7xl px-6 pb-28">
+        <Reveal><div className="mb-12 flex items-end justify-between"><h2 className="font-display text-5xl font-extrabold md:text-7xl">THE NEW<br />DROP</h2><a href="#" className="flex items-center gap-1 text-sm underline">View all <ArrowUpRight className="h-4 w-4" /></a></div></Reveal>
+        <div className="grid gap-6 md:grid-cols-3">
+          {products.map((p, i) => (
+            <Reveal key={p.name} delay={i * 150}>
+              <div className="group overflow-hidden rounded-3xl bg-card">
+                <div className="overflow-hidden"><img src={p.img} alt={p.name} loading="lazy" width={816} height={816} className="aspect-square w-full object-cover transition duration-700 group-hover:scale-110" /></div>
+                <div className="flex items-center justify-between p-6">
+                  <div><p className="text-xs tracking-widest text-muted-foreground">{p.tag.toUpperCase()}</p><p className="mt-1 text-lg font-semibold">{p.name}</p></div>
+                  <span className="rounded-full bg-primary px-4 py-2 text-sm font-bold text-primary-foreground">{p.price}</span>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* STORY */}
+      <section className="mx-auto grid max-w-7xl items-center gap-12 px-6 pb-28 md:grid-cols-2">
+        <Reveal><img src={sky} alt="Floating basketballs" loading="lazy" width={816} height={816} className="aspect-square w-full rounded-[2rem] object-cover" /></Reveal>
+        <Reveal delay={150}>
+          <p className="text-xs tracking-widest text-primary">[ OUR STORY ]</p>
+          <h2 className="font-display mt-4 text-5xl font-extrabold leading-none md:text-6xl">MADE FOR PLAYERS WHO NEVER BLEND IN</h2>
+          <p className="mt-6 text-lg text-muted-foreground">Every FLARE piece is engineered for grip, breathability and movement — then finished with a shine that turns the court into your stage.</p>
+          <a href="#shop" className="mt-8 inline-block rounded-full bg-primary px-8 py-4 font-semibold tracking-widest text-primary-foreground transition hover:scale-105">SHOP THE DROP</a>
+        </Reveal>
+      </section>
+
+      {/* CTA */}
+      <section className="px-3 pb-3">
+        <Reveal>
+          <div className="bg-hero rounded-[2rem] px-6 py-24 text-center">
+            <h2 className="font-display text-6xl font-extrabold md:text-8xl">JOIN THE <span className="text-primary">FLARE</span></h2>
+            <p className="mx-auto mt-4 max-w-md text-muted-foreground">Early access to limited drops and member-only colorways.</p>
+            <form onSubmit={(e) => e.preventDefault()} className="mx-auto mt-10 flex max-w-md gap-2 rounded-full bg-card p-2">
+              <input type="email" placeholder="Your email" className="flex-1 bg-transparent px-4 outline-none placeholder:text-muted-foreground" />
+              <button className="rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground">Subscribe</button>
+            </form>
+          </div>
+        </Reveal>
+        <footer className="flex justify-between px-6 py-8 text-sm text-muted-foreground"><span className="font-display font-extrabold tracking-[0.35em] text-foreground">FLARE</span><span>© 2026 Flare Courtwear</span></footer>
+      </section>
     </div>
   );
 }

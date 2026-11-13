@@ -81,18 +81,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Reelers — Grow Sales" },
-      { name: "description", content: "AI-powered user content that grows sales." },
+      { title: "FLARE — Own The Court" },
+      { name: "description", content: "Limited edition courtwear made to shine." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Reelers — Grow Sales" },
-      { property: "og:description", content: "AI-powered user content that grows sales." },
+      { property: "og:title", content: "FLARE — Own The Court" },
+      { property: "og:description", content: "Limited edition courtwear made to shine." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Manrope:wght@400;500;600;700;800&display=swap" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Archivo:wght@600;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" },
       {
         rel: "stylesheet",
         href: appCss,
