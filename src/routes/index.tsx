@@ -22,8 +22,8 @@ const logos = ["Rakuten", "NCR", "monday.com", "Disney", "Dropbox"];
 
 function Index() {
   return (
-    <div className="bg-page min-h-screen p-4 md:p-16">
-      <div className="mx-auto max-w-6xl rounded-[2rem] bg-card p-3 shadow-sm">
+    <div className="min-h-screen bg-card">
+      <div className="flex min-h-screen flex-col p-3">
         <header className="flex flex-wrap items-center justify-between gap-4 px-8 py-5 text-sm font-semibold">
           <div className="flex items-center gap-3">
             <span className="flex gap-0.5"><span className="h-3 w-4 -rotate-45 rounded-full bg-primary" /><span className="h-3 w-4 -rotate-45 rounded-full bg-primary" /></span>
@@ -39,7 +39,7 @@ function Index() {
           </div>
         </header>
 
-        <section className="bg-hero grid gap-10 rounded-3xl px-8 py-16 md:grid-cols-2 md:px-14">
+        <section className="bg-hero grid flex-1 gap-10 rounded-3xl px-8 py-16 md:grid-cols-2 md:px-14">
           <div className="flex flex-col justify-center">
             <div className="flex items-center gap-3">
               <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs">✦</span>
